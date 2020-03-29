@@ -1,0 +1,11 @@
+export const HOME= '/home';
+export const PROFILE= '/profile';
+export const MY_WALL= '/mywall';
+export const MY_WALL_EDIT= '/mywall/edit/:id';
+export const OPPORTUNITIES= '/opportunities';
+export const ORGANISATIONS= '/organisations';
+export const SOCIAL_WALL= '/socialwall';
+export const INBOX= '/inbox';
+export const SIGN_OUT= '/signout';
+export const FILE_UPLOAD='/fileupload'
+export const UPLOAD='/upload'

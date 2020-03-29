@@ -2,13 +2,18 @@
 // Importing Modules
 const mongoose = require('mongoose');
 const express = require('express');
+const cors = require('cors');
+const crypto = require('crypto');
+const Grid = require('gridfs-stream');
+const methodOverride = require('method-override');
+const GridFsStorage = require('multer-gridfs-storage');
 const bodyParser = require('body-parser');
 // build in module from node
 const path = require('path');
 
+require('dotenv').config();
 // importing files
 const routes = require('./routes');
-
 // Define Global Variables
 const app = express();
 const log = console.log;
@@ -21,10 +26,14 @@ const PORT = process.env.PORT || 8080; // Step 1
 mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost/my_database', {
     useNewUrlParser: true
 });
+const connection= mongoose.connection;
 
 // Configuration
+app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(methodOverride('_method'));
 // need to have the right configuration
 app.use('/', routes);
 
@@ -38,6 +47,59 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
     });
 }
+
+let gfs
+connection.once('open',()=> {
+    // Init stream
+    gfs= Grid(connection.db,mongoose.mongo);
+    gfs.collection('uploads');
+    console.log('MongoDB database connection established successfully')
+})
+
+// Create storage object
+const storage = new GridFsStorage({
+    url: uri,
+    file:(req,file)=> {
+        return new Promise((resolve,reject)=> {
+            crypto.randomBytes(16,(err,buf)=> {
+                if(err){
+                    return reject(err);
+                }
+                const filename=file.originalname;
+                const fileInfo = {
+                    filename: filename,
+                    bucketName: 'uploads'
+                };
+                resolve(fileInfo);
+            })
+        })
+    }
+})
+
+const upload = multer({storage});
+
+app.post('/upload',upload.single('file'),(req,res,err)=> {
+    if(err) {
+        console.log(err)
+    }
+    res.status(201).send()
+})
+
+app.get('/file/:filename',(req,res)=> {
+    // get filename from url
+    gfs.files.findOne({filename:req.params.filename},(err,file)=> {
+        console.log(file)
+        // check if file    
+        if(!file || file.length===0) {
+            return res.status(404).json({
+                err:'No file exists'
+            })
+        }
+
+        // file exists
+        return res.json(file)
+    })
+})
 
 app.listen(PORT, () => {
     log(`Server is starting at PORT: ${PORT}`);
