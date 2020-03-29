@@ -13,7 +13,8 @@ const path = require('path');
 
 require('dotenv').config();
 // importing files
-const routes = require('./routes');
+const mywallRouter = require('./routes/mywall');
+const profileRouter = require('./routes/profile');
 // Define Global Variables
 const app = express();
 const log = console.log;
@@ -35,7 +36,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(methodOverride('_method'));
 // need to have the right configuration
-app.use('/', routes);
+app.use('/', mywallRouter);
+app.use('/', profileRouter);
 
 // Step 3
 //  need to check if the app is in production
