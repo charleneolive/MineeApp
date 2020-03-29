@@ -60,7 +60,7 @@ connection.once('open',()=> {
 
 // Create storage object
 const storage = new GridFsStorage({
-    url: uri,
+    url: process.env.MONGODB_URI,
     file:(req,file)=> {
         return new Promise((resolve,reject)=> {
             crypto.randomBytes(16,(err,buf)=> {
