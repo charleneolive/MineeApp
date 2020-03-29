@@ -2,6 +2,7 @@
 // Importing Modules
 const mongoose = require('mongoose');
 const express = require('express');
+const multer = require('multer');
 const cors = require('cors');
 const crypto = require('crypto');
 const Grid = require('gridfs-stream');
