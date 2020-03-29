@@ -37,8 +37,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(methodOverride('_method'));
 // need to have the right configuration
-app.use('/', mywallRouter);
-app.use('/', profileRouter);
+app.use('/mywall', mywallRouter);
+app.use('/profile', profileRouter);
 
 // Step 3
 //  need to check if the app is in production
