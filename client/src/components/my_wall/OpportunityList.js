@@ -27,7 +27,7 @@ class OpportunityList extends Component {
     
 
     deleteOpportunity(id){
-        axios.delete('http://localhost:5000/mywall/'+id)
+        axios.delete('/mywall/'+id)
         .then(res=> console.log(res.data))
         // delete the required exercise
         // _id is automatically created when we created the object
@@ -37,7 +37,7 @@ class OpportunityList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/mywall/list/')
+        axios.get('/mywall/list')
             .then(response=>{
                 this.setState({opportunities:response.data})
             })

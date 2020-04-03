@@ -67,7 +67,7 @@ function ProfilePage() {
   const onSubmit=(e)=>{
     e.preventDefault();
 
-    axios.post('http://localhost:5000/profile/add', state)
+    axios.post('/profile/add', state)
       .then(res => console.log(res.data));
   }
 

@@ -58,13 +58,13 @@ class EditOpportunity extends Component {
     }
     console.log(opportunity)
 
-    axios.post('http://localhost:5000/mywall/update/'+ this.props.match.params.id,opportunity)
+    axios.post('/mywall/update/'+ this.props.match.params.id,opportunity)
       .then(res => console.log(res.data));
     window.location = '/mywall';
   }
 
   componentDidMount() {
-      axios.get("http://localhost:5000/mywall/"+this.props.match.params.id)
+      axios.get("/mywall/"+this.props.match.params.id)
         .then(response=> {
           this.setState({
             name:response.data.name,

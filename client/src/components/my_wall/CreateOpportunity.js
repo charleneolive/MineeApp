@@ -59,7 +59,7 @@ class CreateOpportunity extends Component {
     }
     console.log(opportunity)
 
-    axios.post('http://localhost:5000/mywall/add', opportunity)
+    axios.post('/add', opportunity)
       .then(res => console.log(res.data));
     alert('Opportunity Submitted')
     // window.location = '/mywall';

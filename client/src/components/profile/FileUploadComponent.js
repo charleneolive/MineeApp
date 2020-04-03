@@ -28,12 +28,12 @@ export default class FileUploadComponent extends Component{
         const formData= new FormData()
         console.log(file[0])
         formData.append('file',file[0])
-        axios.post("http://localhost:5000/upload",formData)
+        axios.post("/upload",formData)
             .then(res=> {
             console.log(res.statusText)
         })
 
-        axios.get('http://localhost:5000/file/'+file[0].name)
+        axios.get('/file/'+file[0].name)
         .then(response=>{
             this.props.setState((prevState,event)=> {
                 return({
