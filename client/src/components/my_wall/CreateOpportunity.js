@@ -57,9 +57,8 @@ class CreateOpportunity extends Component {
       starting_date: this.state.starting_date,
       ending_date: this.state.ending_date
     }
-    console.log(opportunity)
 
-    axios.post('/add', opportunity)
+    axios.post(`${process.env.MONGODB_URI}/add/`, opportunity)
       .then(res => console.log(res.data));
     alert('Opportunity Submitted')
     // window.location = '/mywall';
