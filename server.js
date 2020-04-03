@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 8080; // Step 1
 
 // Step 2
 // point whereever we are running the application
-mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost/my_database', {
+mongoose.connect( process.env.MONGODB_URI || 'mongodb+srv://charleneolive:[2ph2c6]@cluster0-or95p.gcp.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true
 });
 const connection= mongoose.connection;
@@ -61,7 +61,7 @@ connection.once('open',()=> {
 
 // Create storage object
 const storage = new GridFsStorage({
-    url: process.env.MONGODB_URI,
+    url: process.env.MONGODB_URI || 'mongodb+srv://charleneolive:[2ph2c6]@cluster0-or95p.gcp.mongodb.net/test?retryWrites=true&w=majority',
     file:(req,file)=> {
         return new Promise((resolve,reject)=> {
             crypto.randomBytes(16,(err,buf)=> {
