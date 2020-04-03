@@ -5,12 +5,12 @@ let User = require('../models/profile.models');
 
 // this is the first route. a get request route('/users/')
 // if it is a get request, then get a list of all information from database
-router.route('/').get((req, res) => {
-  User.find() 
-//   then get all the users in json format
-    .then(user => res.json(user))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// router.route('/').get((req, res) => {
+//   User.find() 
+// //   then get all the users in json format
+//     .then(user => res.json(user))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
 
 // route('/users/add')
 router.route('/add').post((req, res) => {
