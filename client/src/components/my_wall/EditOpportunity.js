@@ -60,7 +60,7 @@ class EditOpportunity extends Component {
 
     axios.post('http://localhost:5000/mywall/update/'+ this.props.match.params.id,opportunity)
       .then(res => console.log(res.data));
-    window.location = '/mywall/list';
+    window.location = '/mywall';
   }
 
   componentDidMount() {
