@@ -46,7 +46,7 @@ export default function Navbar(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List className={classes.toolist}>
-        {['Home','Profile', 'My Wall/list', 'Opportunities', 'Organisations','Social Wall','Inbox'].map((text, index) => (
+        {['Home','Profile', 'My Wall', 'Opportunities', 'Organisations','Social Wall','Inbox'].map((text, index) => (
           <Link underline="none" href={`/${text.toLowerCase().replace(/\s/g, '')}`} >
           <ListItem button key={text.toUpperCase()} style={{textAlign:"center"}}>
               <ListItemText key={uuid()} primary={text} />
