@@ -47,7 +47,7 @@ export default class FileUploadComponent extends Component{
         })
         document
             .getElementById('img')
-            .setAttribute('src', `http://localhost:5000/file/${file[0].name}`)
+            .setAttribute('src', '/file/${file[0].name}')
 
     }
 
