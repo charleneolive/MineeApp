@@ -66,7 +66,7 @@ class OpportunityList extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-            {/* { this.opportunityList() } */}
+            { this.opportunityList() }
             </TableBody>
           </Table>
         </TableContainer>

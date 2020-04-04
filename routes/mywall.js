@@ -22,7 +22,7 @@ router.route('/add').post((req,res)=>{
     ending_date
   });
   newOpportunity.save()
-    .then(()=> res.json('User added'))
+    .then(()=> res.json('Opportunity added'))
     .catch(err=> res.status(400).json('Error'+err))
 
 })
