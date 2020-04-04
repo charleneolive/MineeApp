@@ -17,16 +17,8 @@ router.get('/list',async(req, res) => {
   }
 });
 
-
-router.post('/add', async(req,res)=> {
-  if(isEmpty(req.body)) {
-    return res.status(403).json({
-      message:"Body should not be empty",
-      statusCode:403
-    })
-  }
+router.route('/add').post((req,res)=>{
   const {name, category,description,starting_date,ending_date}=req.body;
-
   const newOpportunity = new Opportunity({
     name,
     category,
@@ -34,24 +26,10 @@ router.post('/add', async(req,res)=> {
     starting_date,
     ending_date
   });
-  try{
-    await newOpportunity.save();
-    res.json({
-      message:"Data successfully saved",
-      statusCode:200,
-      name,
-      category,
-      description,
-      starting_date,
-      ending_date
-    })
-  } catch (error) {
-    console.log('Error: ', error);
-    res.status(500).json({
-      message:"Internal Server error",
-      statusCode:500
-    })
-  }
+  newOpportunity.save()
+    .then(()=> res.json('User added'))
+    .catch(err=> res.status(400).json('Error'+err))
+
 })
 
 
