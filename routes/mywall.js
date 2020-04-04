@@ -4,17 +4,12 @@ const router = require('express').Router();
 let Opportunity = require('../models/opportunities.models');
 
 // get a list of opportunities
-router.get('/list',async(req, res) => {
-  try {
-    const opportunity= await Opportunity.find({});
-    return res.json({
-      opportunity
-    });
-  } catch (error) {
-    return res.status(500).json({
-      message:'Internal Server Error'
-    })
-  }
+
+router.route('/list').get((req, res) => {
+  Opportunity.find() 
+//   then get all the opportunities in json format
+    .then(opporunity => res.json(opportunity))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/add').post((req,res)=>{
