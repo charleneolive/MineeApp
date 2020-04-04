@@ -4,10 +4,17 @@ const router = require('express').Router();
 let Opportunity = require('../models/opportunities.models');
 
 // get a list of opportunities
-router.route('/list').get((req, res) => {
-  Opportunity.find()
-    .then(opportunity => res.json(opportunity))
-    .catch(err => res.status(400).json('Error: ' + err));
+router.get('/list',async(req, res) => {
+  try {
+    const opportunity= await Opportunity.find({});
+    return res.json({
+      opportunity
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message:'Internal Server Error'
+    })
+  }
 });
 
 router.post('/add', async(req,res)=> {
@@ -45,7 +52,6 @@ router.post('/add', async(req,res)=> {
     })
   }
 })
-
 
 
 // '/:id' is a variable
