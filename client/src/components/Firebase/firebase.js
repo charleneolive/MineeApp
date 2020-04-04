@@ -33,6 +33,8 @@ doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
 doPasswordUpdate=password=> this.auth.currentUser.updatePassword(password);
 
+onAuthStateChange=(user)=> this.auth.onAuthStateChange(user);
+
 }
 
 

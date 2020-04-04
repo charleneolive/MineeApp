@@ -5,6 +5,8 @@ import useStyles from './styles/ProfilePageStyles';
 import ProfilePage3 from './ProfilePage3';
 import ProfilePage2 from './ProfilePage2';
 import ProfilePage4 from './ProfilePage4';
+import {compose} from 'recompose';
+import {withFirebase} from '../Firebase';
 import ImagePage from './ImagePage';
 import {withAuthorization} from '../session'
 
@@ -13,6 +15,8 @@ function ProfilePage() {
   const steps = ['My Particulars', 'My Experience', 'My Education','My Projects','My Volunteering Interests'];
 
   const INITIAL_PARTICULARS={
+      email:'',
+      uuid:'',
       photoUrl:'',
       firstName:'', 
       lastName:'', 
@@ -71,6 +75,16 @@ function ProfilePage() {
       .then(res => console.log(res.data));
   }
 
+  useEffect(()=> {
+    this.props.firebase
+      .onAuthStateChange(user)
+      .then(()=> {
+        setState((prevState,event)=> {return ({...prevState,email:user.email})});
+        setState((prevState,event)=> {return ({...prevState,uid:user.uid})});
+      }
+      )
+  },[]);
+  console.log(state)
   return (
     <div>
       <CssBaseline />
@@ -115,4 +129,4 @@ function ProfilePage() {
 }
 
 const condition = authUser=> !!authUser;
-export default withAuthorization(condition)(ProfilePage);
+export default withAuthorization(condition)(compose(withFirebase)(ProfilePage));

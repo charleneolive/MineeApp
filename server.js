@@ -9,6 +9,8 @@ const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 const GridFsStorage = require('multer-gridfs-storage');
 const bodyParser = require('body-parser');
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 // build in module from node
 const path = require('path');
 
