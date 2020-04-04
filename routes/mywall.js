@@ -8,7 +8,7 @@ let Opportunity = require('../models/opportunities.models');
 router.route('/list').get((req, res) => {
   Opportunity.find() 
 //   then get all the opportunities in json format
-    .then(opporunity => res.json(opportunity))
+    .then(opportunity => res.json(opportunity))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
