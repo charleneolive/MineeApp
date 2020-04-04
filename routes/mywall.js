@@ -10,25 +10,44 @@ router.route('/list').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-  const name = req.body.name;
-  const category=req.body.category;
-  const description = req.body.description;
-  const starting_date = Date.parse(req.body.starting_date);
-  const ending_date = Date.parse(req.body.ending_date);
+router.post('/add', async(req,res)=> {
+  if(isEmpty(req.body)) {
+    return res.status(403).json({
+      message:"Body should not be empty",
+      statusCode:403
+    })
+  }
+  const {name, category,description,starting_date,ending_date}=req.body;
 
-  const newOpportunity= new Opportunity({
+  const newOpportunity = new Opportunity({
     name,
     category,
     description,
     starting_date,
     ending_date
   });
+  try{
+    await newOpportunity.save();
+    res.json({
+      message:"Data successfully saved",
+      statusCode:200,
+      name,
+      category,
+      description,
+      starting_date,
+      ending_date
+    })
+  } catch (error) {
+    console.log('Error: ', error);
+    res.status(500).json({
+      message:"Internal Server error",
+      statusCode:500
+    })
+  }
+})
 
-  newOpportunity.save()
-  .then(() => res.json('Opportunity added!'))
-  .catch(err => res.status(400).json('Error: ' + err));
-});
+
+
 // '/:id' is a variable
 router.route('/:id').get((req, res) => {
   Opportunity.findById(req.params.id)
