@@ -58,7 +58,7 @@ class CreateOpportunity extends Component {
       ending_date: this.state.ending_date
     }
 
-    axios.post('/add', opportunity)
+    axios.post('/mywall/add', opportunity)
       .then(res => console.log(res.data));
     alert('Opportunity Submitted')
     // window.location = '/mywall';
