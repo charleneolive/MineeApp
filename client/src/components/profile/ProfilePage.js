@@ -24,7 +24,7 @@ function ProfilePage() {
       nationality:'',
       charityType:"",
       interests:"",
-      files:"",
+      files:"test",
       occupations:[
         {
           heading:"Imaging Intern",
