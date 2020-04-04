@@ -1,12 +1,10 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import axios from 'axios';
 import {CssBaseline,Paper,Stepper,Step,StepLabel,Button,Typography} from '@material-ui/core';
 import useStyles from './styles/ProfilePageStyles';
 import ProfilePage3 from './ProfilePage3';
 import ProfilePage2 from './ProfilePage2';
 import ProfilePage4 from './ProfilePage4';
-import {compose} from 'recompose';
-import {withFirebase} from '../Firebase';
 import ImagePage from './ImagePage';
 import {withAuthorization} from '../session'
 
@@ -76,13 +74,8 @@ function ProfilePage() {
   }
 
   useEffect(()=> {
-    this.props.firebase
-      .onAuthStateChange(user)
-      .then(()=> {
-        setState((prevState,event)=> {return ({...prevState,email:user.email})});
-        setState((prevState,event)=> {return ({...prevState,uid:user.uid})});
-      }
-      )
+    let user=authUser;
+    console.log(user)
   },[]);
   console.log(state)
   return (
@@ -129,4 +122,4 @@ function ProfilePage() {
 }
 
 const condition = authUser=> !!authUser;
-export default withAuthorization(condition)(compose(withFirebase)(ProfilePage));
+export default withAuthorization(condition)(ProfilePage);
