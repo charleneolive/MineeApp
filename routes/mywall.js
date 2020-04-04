@@ -17,6 +17,7 @@ router.get('/list',async(req, res) => {
   }
 });
 
+
 router.post('/add', async(req,res)=> {
   if(isEmpty(req.body)) {
     return res.status(403).json({
@@ -58,7 +59,7 @@ router.post('/add', async(req,res)=> {
 router.route('/:id').get((req, res) => {
   Opportunity.findById(req.params.id)
     .then(opportunity => res.json(opportunity))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .catch(err => res.status(400).json('Test: ' + err));
 });
 
 router.route('/:id').delete((req, res) => {
